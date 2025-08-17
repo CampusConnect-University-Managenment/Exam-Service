@@ -1,5 +1,6 @@
 package com.example.examservice.entity;
 
+import ch.qos.logback.core.joran.action.Action;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,4 +26,10 @@ public class StudentResultEntity {
     private String gradePoints;
     private String letterGrade;
 
+    public void setName(String stringCellValue) {
+    }
+
+    public void setGradePoint(int numericCellValue) {
+    }
 }
+

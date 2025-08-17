@@ -31,31 +31,22 @@ public class ExcelHelper {
             while (rows.hasNext()) {
                 Row currentRow = rows.next();
 
-                if (rowNumber == 0) { // skip header
+                if (rowNumber == 0) { // ✅ skip header row
                     rowNumber++;
                     continue;
                 }
 
-                Iterator<Cell> cellsInRow = currentRow.iterator();
                 StudentResultEntity student = new StudentResultEntity();
-                int cellIdx = 0;
 
-                while (cellsInRow.hasNext()) {
-                    Cell cell = cellsInRow.next();
+                // Map based on column index from your Excel
+                student.setRegNo(getCellValueAsString(currentRow.getCell(0)));
+                student.setStudentName(getCellValueAsString(currentRow.getCell(1)));
+                student.setCourseCode(getCellValueAsString(currentRow.getCell(2)));
+                student.setCourseTitle(getCellValueAsString(currentRow.getCell(3)));
+                student.setCredits(getCellValueAsString(currentRow.getCell(4)));
+                student.setGradePoints(getCellValueAsString(currentRow.getCell(5)));
+                student.setLetterGrade(getCellValueAsString(currentRow.getCell(6)));
 
-                    switch (cellIdx) {
-                        case 0 -> student.setStudentId(cell.getStringCellValue());
-                        case 1 -> student.setStudentName(cell.getStringCellValue());
-                        case 2 -> student.setSem(cell.getStringCellValue());
-                        case 3 -> student.setRegNo(cell.getStringCellValue());
-                        case 4 -> student.setCourseCode(cell.getStringCellValue());
-                        case 5 -> student.setCourseTitle(cell.getStringCellValue());
-                        case 6 -> student.setCredits(cell.getStringCellValue());
-                        case 7 -> student.setGradePoints(cell.getStringCellValue());
-                        case 8 -> student.setLetterGrade(cell.getStringCellValue());
-                    }
-                    cellIdx++;
-                }
                 results.add(student);
             }
 
@@ -64,5 +55,18 @@ public class ExcelHelper {
         } catch (IOException e) {
             throw new RuntimeException("Fail to parse Excel file: " + e.getMessage());
         }
+    }
+
+    // ✅ utility: safely convert any cell to String
+    private static String getCellValueAsString(Cell cell) {
+        if (cell == null) return "";
+
+        return switch (cell.getCellType()) {
+            case STRING -> cell.getStringCellValue();
+            case NUMERIC -> String.valueOf(cell.getNumericCellValue());
+            case BOOLEAN -> String.valueOf(cell.getBooleanCellValue());
+            case FORMULA -> cell.getCellFormula();
+            default -> "";
+        };
     }
 }
