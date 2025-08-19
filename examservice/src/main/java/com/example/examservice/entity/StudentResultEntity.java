@@ -26,10 +26,6 @@ public class StudentResultEntity {
     private String gradePoints;
     private String letterGrade;
 
-    public void setName(String stringCellValue) {
-    }
 
-    public void setGradePoint(int numericCellValue) {
-    }
 }
 
