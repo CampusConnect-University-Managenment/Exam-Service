@@ -38,14 +38,15 @@ public class ExcelHelper {
 
                 StudentResultEntity student = new StudentResultEntity();
 
-                // Map based on column index from your Excel
-                student.setRegNo(getCellValueAsString(currentRow.getCell(0)));
-                student.setStudentName(getCellValueAsString(currentRow.getCell(1)));
-                student.setCourseCode(getCellValueAsString(currentRow.getCell(2)));
-                student.setCourseTitle(getCellValueAsString(currentRow.getCell(3)));
-                student.setCredits(getCellValueAsString(currentRow.getCell(4)));
-                student.setGradePoints(getCellValueAsString(currentRow.getCell(5)));
-                student.setLetterGrade(getCellValueAsString(currentRow.getCell(6)));
+                // ✅ Correct mapping according to your Excel sheet
+                student.setStudentName(getCellValueAsString(currentRow.getCell(0)));
+                student.setSem(getCellValueAsString(currentRow.getCell(1)));
+                student.setRegNo(getCellValueAsString(currentRow.getCell(2)));
+                student.setCourseCode(getCellValueAsString(currentRow.getCell(3)));
+                student.setCourseTitle(getCellValueAsString(currentRow.getCell(4)));
+                student.setCredits(getCellValueAsString(currentRow.getCell(5)));
+                student.setGradePoints(getCellValueAsString(currentRow.getCell(6)));
+                student.setLetterGrade(getCellValueAsString(currentRow.getCell(7)));
 
                 results.add(student);
             }
@@ -56,6 +57,7 @@ public class ExcelHelper {
             throw new RuntimeException("Fail to parse Excel file: " + e.getMessage());
         }
     }
+
 
     // ✅ utility: safely convert any cell to String
     private static String getCellValueAsString(Cell cell) {
