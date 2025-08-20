@@ -12,10 +12,14 @@ import java.io.IOException;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class StudentResultServiceImpl implements StudentResultService {
 
     private final StudentResultRepository repository;
+
+    public StudentResultServiceImpl(StudentResultRepository repository) {
+        this.repository = repository;
+    }
 
     @Override
     public void saveExcelData(MultipartFile file) {
