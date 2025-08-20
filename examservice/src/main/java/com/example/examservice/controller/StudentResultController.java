@@ -12,11 +12,15 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/results")
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 @CrossOrigin(origins = "http://localhost:3000") // ✅ your React runs on 3000
 public class StudentResultController {
 
     private final StudentResultService service;
+
+    public StudentResultController(StudentResultService service) {
+        this.service = service;
+    }
 
     @GetMapping
     public List<StudentResultEntity> getAllResults() {

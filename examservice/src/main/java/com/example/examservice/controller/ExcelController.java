@@ -9,11 +9,15 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 @RequestMapping("/api/excelresult")
 public class ExcelController {
 
     private final StudentResultService service;
+
+    public ExcelController(StudentResultService service) {
+        this.service = service;
+    }
 
     @PostMapping("/upload")
     public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) {
